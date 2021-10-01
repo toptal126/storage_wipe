@@ -32,9 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
 //        this->setWindowTitle("Administrator");
     }
     else{
-        QMessageBox::warning(this, "Invalid Previllege for this task!", "Please run this program as administrator.");
+        QMessageBox::warning(this, "Invalid Privilege for this task!", "Please run this program as administrator.");
 //        this->setWindowTitle("Guest");
-//        ui->startWipe->setEnabled(false);
+        ui->startWipe->setEnabled(false);
     }
 
     ui->storagePanel->header()->resizeSection(0, 200);
@@ -172,8 +172,8 @@ void MainWindow::on_startWipe_clicked()
     int wipeMethod = ui->wipeMethod->currentIndex();
     qDebug() << wipeOption << wipeMethod;
     if (wipeOption == 0 | wipeMethod == 0){
-        QMessageBox::information(this, "Information", "Select above wiping options.");
-        return;
+        //QMessageBox::information(this, "Information", "Select above wiping options.");
+        //return;
     }
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
@@ -206,7 +206,21 @@ void MainWindow::on_startWipe_clicked()
     argv[0] = new char[5]; strcpy(argv[0], "exe");
     argv[1] = new char[10]; strcpy(argv[1], c_str2);
     argv[2] = new char[5]; strcpy(argv[2], "-y");
-    wipe_main(3, argv);
-//    progressBar->setValue(50);
 
+    ui->startWipe->setEnabled(false);
+    ui->exit->setEnabled(false);
+    wipe_main(3, argv);
+    progressBar->setValue(0);
+
+    qDebug () << wipingTime << elapsedTime << averageSpeed;
+    QMessageBox::information(this, "Wiping Completed!", wipingTime + '\n' + elapsedTime + '\n' + averageSpeed + "[MB/S");
+
+    ui->startWipe->setEnabled(true);
+    ui->exit->setEnabled(true);
+
+}
+
+void MainWindow::on_exit_clicked()
+{
+    qApp->exit();
 }

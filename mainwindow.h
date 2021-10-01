@@ -18,6 +18,9 @@ public:
     QString filterString(QString str);
 private slots:
     void on_startWipe_clicked();
+    void on_exit_clicked();
+
+public:
 
 private:
     Ui::MainWindow *ui;

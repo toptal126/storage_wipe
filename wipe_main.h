@@ -41,6 +41,10 @@ Implement HAVE_CRYPTOGRAPHIC using TrueCrypt's RNG
 QString result;
 QProgressBar *progressBar;
 
+QString elapsedTime;
+QString wipingTime;
+QString averageSpeed;
+QString totalWiped;
 
 #define APPNAME			VER_INTERNAL_NAME
 #define APPVERSION		VER_STRING2
@@ -583,6 +587,8 @@ static void print_stats(unsigned int pass, char *s_byte, ULONGLONG sector, t_sta
         stats->start_time,
         finish_time,
         mb_sec);
+    averageSpeed = QString("%1").arg(mb_sec);
+    progressBar->setValue(this_pct * 100.0);
     fflush(stdout);
 }
 
@@ -1322,6 +1328,14 @@ int wipe_device(char *device_name, int bytes, int *byte, t_stats *stats, HCRYPTP
     }
 
     stats->all_wiping_ticks += stats->wiping_ticks;
+
+    char wiping_time[255];
+    DWORD seconds = (DWORD) (stats->wiping_ticks / stats->tick_frequency);
+    wipingTime = QString("Wiping time : %1min %2s").arg(seconds/60).arg(seconds%60);
+
+
+    seconds = (DWORD) ((get_ticks(stats) - stats->start_ticks) / stats->tick_frequency);
+    elapsedTime = QString("Total elapsed time : %1min %2s").arg(seconds/60).arg(seconds%60);
 
     if (opt.quiet < 2) {
         printf("\n");

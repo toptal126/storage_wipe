@@ -117,6 +117,9 @@
     <property name="autoFillBackground">
      <bool>true</bool>
     </property>
+    <property name="maximum">
+     <number>10000</number>
+    </property>
     <property name="value">
      <number>0</number>
     </property>
@@ -167,13 +170,8 @@ p, li { white-space: pre-wrap; }
      </font>
     </property>
     <property name="editable">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
-    <item>
-     <property name="text">
-      <string/>
-     </property>
-    </item>
     <item>
      <property name="text">
       <string>FTP</string>
@@ -377,11 +375,6 @@ p, li { white-space: pre-wrap; }
     </property>
     <item>
      <property name="text">
-      <string/>
-     </property>
-    </item>
-    <item>
-     <property name="text">
       <string>AllZero(0)</string>
      </property>
     </item>
@@ -418,11 +411,6 @@ p, li { white-space: pre-wrap; }
     <property name="editable">
      <bool>false</bool>
     </property>
-    <item>
-     <property name="text">
-      <string/>
-     </property>
-    </item>
     <item>
      <property name="text">
       <string>DoD 5220.22-M 米国国防総省方式（上書き3回）</string>
